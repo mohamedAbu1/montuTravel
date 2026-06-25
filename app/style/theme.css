@@ -1,0 +1,127 @@
+@import "tailwindcss";
+
+/* =========================
+   Theme Variables
+   ========================= */
+:root {
+  /* تدرجات */
+  --gradient-light: linear-gradient(to right, #4f6d7a, #0A7A8C);
+  --gradient-dark: linear-gradient(to right, #C2A878, #5C4B3B);
+
+  /* خلفية */
+  --background: rgba(255, 255, 255, 0.25);
+  --backdrop-blur: 20px;
+  --text-gradient: var(--gradient-light);
+
+  /* النصوص */
+  --text: #0A2E36;
+  --sub-text: #4F6D7A;
+
+  /* العناوين */
+  --title: #fff;
+  --heading: #fff;
+
+  /* الكروت */
+  --card-bg: rgba(255, 255, 255, 0.15);
+  --card-border: rgba(194, 168, 120, 0.6);
+  --card-blur: 16px;
+
+  /* طبقة فوق الصور */
+  --overlay: rgba(0, 60, 90, 0.25);
+
+  /* الأزرار */
+  --button-primary-bg: rgba(194, 168, 120, 0.25);
+  --button-primary-text: #C2A878;
+  --button-primary-hover-bg: rgba(194, 168, 120, 0.3);
+  --button-primary-hover-text: #0A2E36;
+
+  --button-secondary-bg: rgba(255, 255, 255, 0.25);
+  --button-secondary-text: #0A2E36;
+  --button-secondary-hover-bg: rgba(255, 255, 255, 0.35);
+
+  /* الحدود والظلال */
+  --border: rgba(194, 168, 120, 0.5);
+  --shadow: 0 4px 20px rgba(0, 0, 0, 0.15);
+
+  /* شعار */
+  --logo-gradient-from: rgba(255, 255, 255, 0.6);
+  --logo-gradient-to: rgba(0, 150, 180, 0.8);
+  --logo-border: #C2A878;
+
+  /* الحقول */
+  --input-text: #0A2E36;
+  --input-border: #C2A878;
+  --input-focus: #0A7A8C;
+  --input-hover-bg: rgba(255, 255, 255, 0.25);
+  --input-label: #4F6D7A;
+
+  /* الأيقونات */
+  --icon: #0A7A8C;
+  --icon-inactive: #9E9E9E;
+  --icon-hover: #C2A878;
+
+  /* ألوان إضافية */
+  --primary-color: #0A7A8C;
+  --primary-gradient: linear-gradient(to right, #c9a34a, #a68b5b);
+  --bg-light: rgba(255,255,255,0.7);
+  --bg-dark: rgba(0,0,0,0.4);
+  --border-light: rgba(201,163,74,0.3);
+  --border-dark: rgba(194,168,120,0.3);
+}
+
+/* =========================
+   Dark Theme Overrides
+   ========================= */
+:root[data-theme="dark"] {
+  --background: rgba(20, 20, 20, 0.95);
+  --backdrop-blur: 18px;
+  --text-gradient: var(--gradient-dark);
+
+  --text: #E6DCCF;
+  --sub-text: #B3A58C;
+
+  --title: #C2A878;
+  --heading: #A68B5B;
+
+  --card-bg: rgba(35, 35, 35, 0.85);
+  --card-border: #C2A878;
+  --card-blur: 14px;
+
+  --overlay: rgba(0, 0, 0, 0.2);
+
+  --button-primary-bg: #C2A878;
+  --button-primary-text: #000;
+  --button-primary-hover-bg: #A68B5B;
+  --button-primary-hover-text: #fff;
+
+  --button-secondary-bg: #2A2A2A;
+  --button-secondary-text: #E6DCCF;
+  --button-secondary-hover-bg: #3A3A3A;
+  --button-secondary-border: #C2A878;
+
+  --border: rgba(194, 168, 120, 0.45);
+  --shadow: 0 6px 20px rgba(0, 0, 0, 0.6),
+            inset 0 0 12px rgba(255, 255, 255, 0.05);
+
+  --logo-gradient-from: #fff;
+  --logo-gradient-to: #C2A878;
+  --logo-border: #A68B5B;
+
+  --input-text: #E6DCCF;
+  --input-focus: #A68B5B;
+  --input-hover-bg: rgba(35, 35, 35, 0.85);
+  --input-label: #B3A58C;
+
+  --icon: #C2A878;
+  --icon-inactive: #8C7C5A;
+  --icon-hover: #A68B5B;
+
+  --primary-color: #C2A878;
+  --primary-gradient: linear-gradient(to right, #C2A878, #5C4B3B);
+}
+
+body {
+  background: var(--background);
+  color: var(--text);
+  font-family: Arial, Helvetica, sans-serif;
+}
