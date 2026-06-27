@@ -15,22 +15,8 @@ const CarBookingSection = () => {
   const { user } = useAuth();
 
   const symbols = [
-    "𓂀",
-    "𓋹",
-    "𓆣",
-    "𓇼",
-    "𓇯",
-    "𓏏",
-    "𓎛",
-    "𓊽",
-    "𓃾",
-    "𓅓",
-    "𓈇",
-    "𓉐",
-    "𓊹",
-    "𓌙",
-    "𓍿",
-    "𓎟",
+    "𓂀","𓋹","𓆣","𓇼","𓇯","𓏏","𓎛","𓊽",
+    "𓃾","𓅓","𓈇","𓉐","𓊹","𓌙","𓍿","𓎟",
   ];
 
   // ✨ إعدادات الأنيميشن
@@ -51,16 +37,20 @@ const CarBookingSection = () => {
       variants={fadeInUp}
       className={`hidden lg:flex relative w-full items-center justify-center py-24 px-6 transition-colors duration-500 overflow-hidden ${theme.background}`}
     >
-      {/* Background Car Image */}
+      {/* Background Car Image / Gradient */}
       <div className="absolute inset-0 -z-10">
-        <Image
-          src={themeName === "dark" ? "/HomePageImage/420615245_1ff35e98-89c6-4802-afde-47b3b0f58385.svg" : ""}
-          alt="Luxury Car Background"
-          fill
-          className="object-cover opacity-20 rounded-lg"
-          priority // ✅ لو الصورة أساسية في الصفحة (خلفية أو Hero)
-          quality={85} // ✅ يقلل حجم الصورة ويحافظ على الجودة
-        />
+        {themeName === "dark" ? (
+          <Image
+            src="/HomePageImage/420615245_1ff35e98-89c6-4802-afde-47b3b0f58385.svg"
+            alt="Luxury Car Background"
+            fill
+            className="object-cover opacity-20 rounded-lg"
+            priority
+            quality={85}
+          />
+        ) : (
+          <div className="absolute inset-0 bg-gradient-to-br from-[#fdf6e3]/80 via-white to-[#c9a34a]/20 rounded-lg" />
+        )}
         <div
           className={`absolute inset-0 bg-gradient-to-br ${
             themeName === "dark"
@@ -75,9 +65,7 @@ const CarBookingSection = () => {
         {Array.from({ length: 20 }).map((_, i) => (
           <span
             key={i}
-            className={`absolute ${
-              themeName === "dark" ? "text-[#222]" : "text-[#222]"
-            } opacity-30 text-6xl animate-pulse`}
+            className={`absolute ${themeName === "dark" ? "text-[#222]" : "text-[#222]"} opacity-30 text-6xl animate-pulse`}
             style={{
               top: `${Math.random() * 100}%`,
               left: `${Math.random() * 100}%`,
@@ -102,14 +90,14 @@ const CarBookingSection = () => {
           <Image
             src={
               themeName === "dark"
-                ? "/HomePageImage/vintage-traditional-vector-illustration.png"
-                : "/HomePageImage/sketch-drawing-horse-driver-vector-illustration.png"
+                ? "/HomePageImage/vintage-traditional-vector-illustration.webp"
+                : "/HomePageImage/sketch-drawing-horse-driver-vector-illustration.webp"
             }
             alt="Luxury Car"
             fill
             className="object-contain drop-shadow-2xl scale-x-[-1]"
-            priority // ✅ لو الصورة أساسية في الصفحة (مثلاً Hero أو خلفية مهمة)
-            quality={85} // ✅ يقلل حجم الصورة ويحافظ على جودة مناسبة
+            priority
+            quality={85}
           />
         </motion.div>
 
@@ -121,12 +109,10 @@ const CarBookingSection = () => {
           <h2
             className={`sc-title-first text-5xl font-extrabold tracking-wide drop-shadow-md flex items-start gap-3 justify-center lg:justify-start`}
             style={{
-              WebkitTextStroke:
-                themeName === "dark" ? "1px #C2A878" : "1px #5C4B3B",
-              textShadow:
-                themeName === "dark"
-                  ? "2px 2px 6px rgba(0,0,0,0.6)"
-                  : "2px 2px 6px rgba(255,255,255,0.3)",
+              WebkitTextStroke: themeName === "dark" ? "1px #C2A878" : "1px #5C4B3B",
+              textShadow: themeName === "dark"
+                ? "2px 2px 6px rgba(0,0,0,0.6)"
+                : "2px 2px 6px rgba(255,255,255,0.3)",
             }}
           >
             {t("PremiumCarTransfer")}
@@ -137,7 +123,6 @@ const CarBookingSection = () => {
             {t("Experience")}
           </p>
           {user ? (
-            // ✅ زر الحجز يظهر فقط إذا كان فيه مستخدم
             <motion.button
               variants={fadeInUp}
               style={{ cursor: "pointer" }}
@@ -154,23 +139,22 @@ const CarBookingSection = () => {
               {t("Book")}
             </motion.button>
           ) : (
-            // ✅ رسالة أنيقة بدل الزر لو ما فيش مستخدم
             <motion.p
               variants={fadeInUp}
               className="sc-p-first mt-8 text-lg font-semibold opacity-80 italic text-center lg:text-left"
               style={{
-                WebkitTextStroke:
-                  themeName === "dark" ? "1px #C2A878" : "1px #5C4B3B",
-                textShadow:
-                  themeName === "dark"
-                    ? "2px 2px 6px rgba(0,0,0,0.6)"
-                    : "2px 2px 6px rgba(255,255,255,0.3)",
+                WebkitTextStroke: themeName === "dark" ? "1px #C2A878" : "1px #5C4B3B",
+                textShadow: themeName === "dark"
+                  ? "2px 2px 6px rgba(0,0,0,0.6)"
+                  : "2px 2px 6px rgba(255,255,255,0.3)",
               }}
             >
               Please log in and book your car now ✨
             </motion.p>
           )}
         </motion.div>
+
+        {/* Second Car Image */}
         <motion.div
           variants={fadeInUp}
           className="flex-1 relative w-full h-80 lg:h-[400px]"
@@ -178,14 +162,14 @@ const CarBookingSection = () => {
           <Image
             src={
               themeName === "dark"
-                ? "/HomePageImage/vintage-traditional-vector-illustration.png"
-                : "/HomePageImage/sketch-drawing-horse-driver-vector-illustration.png"
+                ? "/HomePageImage/vintage-traditional-vector-illustration.webp"
+                : "/HomePageImage/sketch-drawing-horse-driver-vector-illustration.webp"
             }
             alt="Luxury Car"
             fill
             className="object-contain drop-shadow-2xl"
-            priority // ✅ لو الصورة أساسية في الصفحة (مثلاً Hero أو خلفية مهمة)
-            quality={85} // ✅ يقلل حجم الصورة ويحافظ على جودة مناسبة
+            priority
+            quality={85}
           />
         </motion.div>
       </motion.div>

@@ -24,8 +24,8 @@ export default function AboutHero() {
           <Image
             src={
               themeName === "dark"
-                ? "/HomePageImage/ancient-egyptian-winged-goddess-isis-statue-white-background.png"
-                : "/HomePageImage/golden-pharaoh-statue-ancient-egypt.png"
+                ? "/HomePageImage/ancient-egyptian-winged-goddess-isis-statue-white-background.webp"
+                : "/HomePageImage/golden-pharaoh-statue-ancient-egypt.webp"
             }
             alt="WasetTravel Luxury Experience"
             width={800}
@@ -72,8 +72,8 @@ export default function AboutHero() {
           <Image
             src={
               themeName === "dark"
-                ? "/HomePageImage/ancient-egyptian-winged-goddess-isis-statue-white-background.png"
-                : "/HomePageImage/golden-pharaoh-statue-ancient-egypt.png"
+                ? "/HomePageImage/ancient-egyptian-winged-goddess-isis-statue-white-background.webp"
+                : "/HomePageImage/golden-pharaoh-statue-ancient-egypt.webp"
             }
             alt="WasetTravel Luxury Experience"
             width={800}

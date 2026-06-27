@@ -64,7 +64,7 @@
   --primary-color: #0A7A8C;
   --primary-gradient: linear-gradient(to right, #c9a34a, #a68b5b);
   --bg-light: rgba(255,255,255,0.7);
-  --bg-dark: rgba(0,0,0,0.4);
+  --bg-dark: rgba(0, 0, 0, 0.815);
   --border-light: rgba(201,163,74,0.3);
   --border-dark: rgba(194,168,120,0.3);
 }

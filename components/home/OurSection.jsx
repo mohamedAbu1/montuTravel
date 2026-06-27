@@ -93,8 +93,8 @@ const OurSection = () => {
           >
             {[
               themeName === "dark"
-                ? "/HomePageImage/ancient-egyptian-winged-goddess-isis-statue-white-background.png" // صورة للوضع الداكن
-                : "/HomePageImage/golden-pharaoh-statue-ancient-egypt.png", // صورة للوضع الفاتح
+                ? "/HomePageImage/ancient-egyptian-winged-goddess-isis-statue-white-background.webp" // صورة للوضع الداكن
+                : "/HomePageImage/golden-pharaoh-statue-ancient-egypt.webp", // صورة للوضع الفاتح
             ].map((imgSrc, index) => (
               <div
                 key={index}
@@ -183,8 +183,8 @@ const OurSection = () => {
           >
             {[
               themeName === "dark"
-                ? "/HomePageImage/ancient-egyptian-winged-goddess-isis-statue-white-background.png" // صورة للوضع الداكن
-                : "/HomePageImage/golden-pharaoh-statue-ancient-egypt.png", // صورة للوضع الفاتح
+                ? "/HomePageImage/ancient-egyptian-winged-goddess-isis-statue-white-background.webp" // صورة للوضع الداكن
+                : "/HomePageImage/golden-pharaoh-statue-ancient-egypt.webp", // صورة للوضع الفاتح
             ].map((imgSrc, index) => (
               <div
                 key={index}

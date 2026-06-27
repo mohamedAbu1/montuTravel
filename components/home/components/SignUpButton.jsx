@@ -1,19 +1,17 @@
 "use client";
 import React, { useState } from "react";
 import { useAuth } from "@/context/AuthContext";
-import {
-  Button,
-  Dialog,
-  DialogContent,
-  Divider,
-  FormControlLabel,
-  FormLabel,
-  IconButton,
-  InputAdornment,
-  Radio,
-  RadioGroup,
-  TextField,
-} from "@mui/material";
+import Button from "@mui/material/Button";
+import Dialog from "@mui/material/Dialog";
+import DialogContent from "@mui/material/DialogContent";
+import Divider from "@mui/material/Divider";
+import FormControlLabel from "@mui/material/FormControlLabel";
+import FormLabel from "@mui/material/FormLabel";
+import IconButton from "@mui/material/IconButton";
+import InputAdornment from "@mui/material/InputAdornment";
+import Radio from "@mui/material/Radio";
+import RadioGroup from "@mui/material/RadioGroup";
+import TextField from "@mui/material/TextField";
 import { motion } from "framer-motion";
 import { MdEmail, MdLock, MdPerson } from "react-icons/md";
 import { FcGoogle } from "react-icons/fc";
@@ -27,7 +25,7 @@ import { supabase } from "@/lib/supabaseClient";
 
 export default function SignUpModal() {
   const { handleLoginOpen } = useData();
-  const { theme } = useTheme(); // ✅ جلب الثيم
+  const { theme } = useTheme();
   const { validateField } = useSecurity();
   const [fullName, setFullName] = useState("");
   const [email, setEmail] = useState("");
@@ -42,7 +40,9 @@ export default function SignUpModal() {
     const emailError = validateField("Email", email);
     const passwordError = validateField("Password", password);
     if (nameError || emailError || passwordError || !gender) {
-      toast.error(nameError || emailError || passwordError || "Gender is required");
+      toast.error(
+        nameError || emailError || passwordError || "Gender is required",
+      );
       return;
     }
     try {
@@ -53,6 +53,7 @@ export default function SignUpModal() {
       toast.error("❌ Error: " + err.message);
     }
   };
+
   const loginWithGoogle = async () => {
     try {
       const { error } = await supabase.auth.signInWithOAuth({
@@ -64,29 +65,29 @@ export default function SignUpModal() {
           },
         },
       });
-
-      if (error) {
-        toast.error(`❌ خطأ في الاتصال بجوجل: ${error.message}`);
-      }
+      if (error) toast.error(`❌ خطأ في الاتصال بجوجل: ${error.message}`);
     } catch (err) {
       console.error("OAuth Error:", err);
       toast.error("❌ حدث خطأ غير متوقع أثناء تسجيل الدخول.");
     }
   };
+
   return (
     <Dialog open={open} onClose={handleClose} fullWidth maxWidth="sm">
       <motion.div
         initial={{ opacity: 0, y: 40, scale: 0.95 }}
         animate={{ opacity: 1, y: 0, scale: 1 }}
         transition={{ duration: 0.6, ease: "easeOut" }}
-        className={`p-6 ${theme.card}`} // ✅ خلفية الكارد من الثيم
-        style={{ borderRadius: "24px" }}
+        className="p-8 bg-white/30 dark:bg-black/40 backdrop-blur-xl shadow-2xl rounded-3xl border border-white/20"
       >
         {/* Header */}
         <div className="text-center mb-6">
-          <h1 className={`text-4xl font-bold tracking-wide ${theme.title}`}>
-           Basttet travel
+          <h1 className="text-4xl font-extrabold tracking-wide text-transparent bg-clip-text bg-gradient-to-r from-yellow-600 via-orange-500 to-pink-500 drop-shadow-lg">
+            Montu Travel
           </h1>
+          <p className="mt-2 text-sm text-gray-600 dark:text-gray-300">
+            {t("CreateYourAccount")}
+          </p>
         </div>
 
         {/* Content */}
@@ -99,7 +100,7 @@ export default function SignUpModal() {
             InputProps={{
               startAdornment: (
                 <InputAdornment position="start">
-                  <MdPerson className={theme.icon} />
+                  <MdPerson className="text-yellow-600" />
                 </InputAdornment>
               ),
             }}
@@ -114,7 +115,7 @@ export default function SignUpModal() {
             InputProps={{
               startAdornment: (
                 <InputAdornment position="start">
-                  <MdEmail className={theme.icon} />
+                  <MdEmail className="text-blue-600" />
                 </InputAdornment>
               ),
             }}
@@ -129,27 +130,31 @@ export default function SignUpModal() {
             InputProps={{
               startAdornment: (
                 <InputAdornment position="start">
-                  <MdLock className={theme.icon} />
+                  <MdLock className="text-red-600" />
                 </InputAdornment>
               ),
             }}
           />
 
-          <FormLabel component="legend" className={`${theme.text} font-semibold`}>
+          <FormLabel
+            component="legend"
+            style={{ color: "#fff" }}
+            className="font-semibold text-white"
+          >
             {t("Gender")}
           </FormLabel>
           <RadioGroup
             row
             value={gender}
             onChange={(e) => setGender(e.target.value)}
-            className="justify-center gap-6"
+            className="justify-center gap-6  text-white"
           >
             <FormControlLabel
               value={t("male")}
               control={<Radio />}
               label={
                 <div className="flex items-center gap-2">
-                  <FaMale className={theme.icon} /> {t("male")}
+                  <FaMale className="text-blue-500" /> {t("male")}
                 </div>
               }
             />
@@ -158,48 +163,32 @@ export default function SignUpModal() {
               control={<Radio />}
               label={
                 <div className="flex items-center gap-2">
-                  <FaFemale className={theme.icon} /> {t("female")}
+                  <FaFemale className="text-pink-500" /> {t("female")}
                 </div>
               }
             />
           </RadioGroup>
 
-          <Divider className={`${theme.border} my-4`}>
-            {t("orsignupwith")}
-          </Divider>
+          <Divider className="my-4 text-white">{t("orsignupwith")}</Divider>
 
           {/* Social Buttons */}
-         <div style={{ display: "flex", justifyContent: "center", marginTop: "20px" }}>
+          <div className="flex justify-center mt-2">
             <IconButton
               onClick={loginWithGoogle}
-              style={{
-                width: "280px",
-                height: "56px",
-                borderRadius: "12px",
-                background:
-                  "linear-gradient(to right, #4285F4, #34A853, #FBBC05, #EA4335)",
-                color: "#fff",
-                fontWeight: "700",
-                fontSize: "16px",
-                display: "flex",
-                alignItems: "center",
-                justifyContent: "center",
-                gap: "12px",
-                boxShadow: "0 6px 16px rgba(0,0,0,0.2)",
-                transition: "all 0.3s ease",
-              }}
+              className="w-[280px] h-[56px] rounded-[10px] bg-gradient-to-r from-[#4285F4] via-[#34A853] to-[#FBBC05] text-white font-bold text-lg shadow-lg hover:scale-105 transition-transform"
             >
               <FcGoogle size={28} />
-              <span style={{ color: "#fff" }}>Sign in with Google</span>
+              <span className="ml-2">Sign in with Google</span>
             </IconButton>
           </div>
+
           {/* Sign Up Button */}
           <motion.div whileHover={{ scale: 1.05 }} className="mt-4">
             <Button
               fullWidth
               onClick={handleSubmit}
               disabled={loading}
-              className={theme.buttonPrimary} // ✅ زر من الثيم
+              className="bg-gradient-to-r from-yellow-600 via-orange-500 to-pink-500 text-white font-bold py-3 rounded-xl shadow-lg hover:opacity-90 transition"
             >
               {loading ? t("Creating") : t("SignUp")}
             </Button>
@@ -209,7 +198,7 @@ export default function SignUpModal() {
           <Button
             fullWidth
             onClick={handleLoginOpen}
-            className={theme.buttonSecondary} // ✅ زر ثانوي من الثيم
+            className="mt-2 bg-gray-200 dark:bg-gray-700 text-gray-800 dark:text-gray-200 font-semibold py-3 rounded-xl shadow hover:opacity-80 transition"
           >
             {t("Alreadyhaveanaccount?Login")}
           </Button>

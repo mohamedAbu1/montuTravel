@@ -2,7 +2,7 @@
 import { motion } from "framer-motion";
 import { useTheme } from "@/context/ThemeContext";
 import { FaCalendarAlt } from "react-icons/fa";
-import { useState, useEffect } from "react";
+import { useState } from "react";
 import CitiesInput from "./components/CitiesInput";
 import CategoriesInput from "./components/CategoriesInput";
 import DatePicker from "react-datepicker";
@@ -10,84 +10,83 @@ import "react-datepicker/dist/react-datepicker.css";
 import { addDays } from "date-fns";
 import { useCitiesCategories } from "@/context/CitiesCategoriesContext";
 import { useRouter } from "next/navigation";
-const encodeData = (obj) => {
-  return encodeURIComponent(JSON.stringify(obj));
-};
-export default function BookingForm({ setShowTrips }) {
+import { useQueryFilters } from "@/context/QueryContext";
+
+const encodeData = (obj) => btoa(JSON.stringify(obj));
+
+export default function BookingForm({ setShowTrips, trips = [] }) {
   const { theme } = useTheme();
-
+  const { cities, categories } = useCitiesCategories();
+  const { updateValue } = useQueryFilters();
+  const router = useRouter();
   const [showCities, setShowCities] = useState(false);
-  const [selectedCities, setSelectedCities] = useState([]);
-
-  const toggleCity = (city) =>
-    setSelectedCities((prev) =>
-      prev.includes(city) ? prev.filter((c) => c !== city) : [...prev, city],
-    );
-  const confirmCities = () => setShowCities(false);
-
   const [showCategories, setShowCategories] = useState(false);
+
+  const [selectedCities, setSelectedCities] = useState([]);
   const [selectedCategories, setSelectedCategories] = useState([]);
-
-  const { cities, categories, loading } = useCitiesCategories(); // ✅ جلب البيانات من الكونتكست
-  const toggleCategory = (cat) =>
-    setSelectedCategories((prev) =>
-      prev.includes(cat) ? prev.filter((c) => c !== cat) : [...prev, cat],
-    );
-  const confirmCategories = () => setShowCategories(false);
-  const [screenSize, setScreenSize] = useState({ width: 0, height: 0 });
-
-  useEffect(() => {
-    const handleResize = () => {
-      setScreenSize({ width: window.innerWidth, height: window.innerHeight });
-    };
-
-    handleResize(); // أول مرة
-    window.addEventListener("resize", handleResize);
-    return () => window.removeEventListener("resize", handleResize);
-  }, []);
-
-  // منطق التحكم في القيم حسب حجم الشاشة
-  let rightValue = screenSize.width * 0.19;
-  let topValue = 0;
-
-  if (screenSize.width >= 1575) {
-    // موبايل
-    rightValue = screenSize.width * 0.2;
-    topValue = 0;
-  } else if (screenSize.width >= 1000) {
-    // تابلت
-    rightValue = screenSize.width * 0.36;
-    topValue = 0;
-  }
   const [arrival, setArrival] = useState(null);
   const [departure, setDeparture] = useState(null);
   const [startDate, setStartDate] = useState(null);
   const specialDates = [];
-  const router = useRouter();
 
   const handleClick = () => {
     const queryObj = {
-      city: selectedCities.map((c) => c.displayName), // ✅ المدن المختارة
-      category: selectedCategories.map((c) => c.displayName), // ✅ الكاتيجريز المختارة
-      price: "All", // ✅ ثابت
-      popular: false, // ✅ ثابت
+      city: selectedCities.length
+        ? selectedCities.map((c) => c.name.en)
+        : ["all"],
+      category: selectedCategories.length
+        ? selectedCategories.map((c) => c.name)
+        : ["all"],
+      price: "All",
+      popular: false,
     };
 
+    // ✅ اطبع القيم علشان نعرف السبب
+    console.log("Query object:", queryObj);
     const encoded = encodeData(queryObj);
+    console.log("Encoded query:", encoded);
+
+    // ✅ اطبع القيم الحقيقية للرحلات
+    trips.forEach((trip) => {
+      console.log("Trip city:", trip.city);
+      console.log("Trip category:", trip.category);
+    });
+
+    updateValue("city", queryObj.city);
+    updateValue("category", queryObj.category);
+    updateValue("price", queryObj.price);
+    updateValue("popular", queryObj.popular);
+
     router.push(`/trips?data=${encoded}`);
   };
+
+  const toggleCity = (city) => {
+    setSelectedCities((prev) =>
+      prev.some((c) => c.id === city.id)
+        ? prev.filter((c) => c.id !== city.id)
+        : [...prev, city],
+    );
+  };
+
+  const toggleCategory = (cat) => {
+    setSelectedCategories((prev) =>
+      prev.some((c) => c.id === cat.id)
+        ? prev.filter((c) => c.id !== cat.id)
+        : [...prev, cat],
+    );
+  };
+
   const CustomInput = ({ value, onClick }) => (
     <div
       onClick={onClick}
-      className={`flex w-[325px] items-center rounded-[14px] px-6 cursor-pointer 
+      className={`flex w-full items-center rounded-[10px] px-4 py-2 cursor-pointer 
                   backdrop-blur-md border ${theme.logoBorder} shadow-md hover:shadow-lg 
-                  transition-all duration-300 relative overflow-hidden `}
+                  transition-all duration-300 relative overflow-hidden`}
     >
       <FaCalendarAlt className={`mr-3 text-xl ${theme.iconHover}`} />
       <span className={`flex-1 p-2 tracking-wide font-medium ${theme.text}`}>
         {value || "Select Date"}
       </span>
-      <div className="absolute inset-0 bg-gradient-to-r from-transparent via-[rgba(194,168,120,0.15)] to-transparent opacity-0 hover:opacity-100 transition-opacity duration-500"></div>
     </div>
   );
 
@@ -96,52 +95,51 @@ export default function BookingForm({ setShowTrips }) {
       initial={{ opacity: 0, y: 40 }}
       animate={{ opacity: 1, y: 0 }}
       transition={{ duration: 2 }}
-      className={`mt-6  shadow-lg flex flex-col flex-wrap gap-4 w-[80%] max-w-4xl p-6 
+      className={`mt-6 h-auto shadow-lg w-[95%] max-w-6xl p-6 
                   backdrop-blur-md border ${theme.logoBorder} rounded-xl relative`}
     >
-      <div className="flex flex-row flex-wrap gap-5 flex-1">
-        {/* Cities */}
+      {/* ✅ الصف الأول: المدن + الكاتجري */}
+      <div className="grid grid-cols-1 md:grid-cols-2 gap-6 mb-6">
         <div
-          className={`flex items-center flex-1 border ${theme.logoBorder} rounded-[14px] px-3 relative `}
+          className={`flex items-center border ${theme.logoBorder} rounded-[4px] px-3`}
         >
           <CitiesInput
             selectedCities={selectedCities}
-            confirmSelection={confirmCities}
+            setSelectedCities={setSelectedCities}
+            confirmSelection={() => setShowCities(false)}
             setShowCities={setShowCities}
             toggleCity={toggleCity}
             showCities={showCities}
             cities={cities}
-            topValue={topValue}
-            rightValue={rightValue}
           />
         </div>
 
-        {/* Categories */}
         <div
-          className={`flex items-center flex-1 border ${theme.logoBorder} rounded-[14px] px-3 relative`}
+          className={`flex items-center border ${theme.logoBorder} rounded-[4px] px-3`}
         >
           <CategoriesInput
             selectedCategories={selectedCategories}
-            confirmSelection={confirmCategories}
+            setSelectedCategories={setSelectedCategories}
+            confirmSelection={() => setShowCategories(false)}
             setShowCategories={setShowCategories}
             toggleCategory={toggleCategory}
             showCategories={showCategories}
             categories={categories}
-            topValue={topValue}
-            rightValue={rightValue}
           />
         </div>
+      </div>
 
-        {/* Arrival Date */}
-        <div className="flex-1 max-w-[120px] xl:min-w-[325px] flex flex-col z-[1]">
+      {/* ✅ الصف الثاني: موعد الدخول + موعد الخروج */}
+      <div className="grid grid-cols-1 md:grid-cols-2 gap-6 mb-6">
+        <div className="flex flex-col">
           <DatePicker
             selected={arrival}
             onChange={(date) => {
               setArrival(date);
               setStartDate(date);
             }}
-            onCalendarOpen={() => setShowTrips(true)} // ✅ إظهار الكروت عند فتح الجدول
-            onCalendarClose={() => setShowTrips(false)} // ✅ إخفاء الكروت عند إغلاق الجدول
+            onCalendarOpen={() => setShowTrips(true)}
+            onCalendarClose={() => setShowTrips(false)}
             dateFormat="dd/MM/yyyy"
             placeholderText="Checkin"
             customInput={<CustomInput />}
@@ -155,13 +153,12 @@ export default function BookingForm({ setShowTrips }) {
           />
         </div>
 
-        {/* Departure Date */}
-        <div className="flex-1 max-w-[120px] xl:min-w-[325px] flex flex-col z-50">
+        <div className="flex flex-col">
           <DatePicker
             selected={departure}
             onChange={(date) => setDeparture(date)}
-            onCalendarOpen={() => setShowTrips(true)} // ✅ إظهار الكروت عند فتح الجدول
-            onCalendarClose={() => setShowTrips(false)} // ✅ إخفاء الكروت عند إغلاق الجدول
+            onCalendarOpen={() => setShowTrips(true)}
+            onCalendarClose={() => setShowTrips(false)}
             minDate={startDate ? addDays(startDate, 7) : addDays(new Date(), 4)}
             dateFormat="dd/MM/yyyy"
             placeholderText="Checkout"
@@ -170,11 +167,10 @@ export default function BookingForm({ setShowTrips }) {
         </div>
       </div>
 
-      {/* زر الحجز */}
       <motion.button
         whileHover={{ scale: 1.05 }}
         whileTap={{ scale: 0.95 }}
-        onClick={handleClick} // ✅ ربط الدالة
+        onClick={handleClick}
         className={`w-full rounded-[6px] px-6 py-3 font-semibold tracking-wide cursor-pointer 
               transition-all duration-300 shadow-lg ${theme.buttonPrimary}`}
         style={{

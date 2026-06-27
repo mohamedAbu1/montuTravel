@@ -1,15 +1,13 @@
 "use client";
 import { useState } from "react";
 import { motion } from "framer-motion";
-import {
-  Dialog,
-  DialogContent,
-  TextField,
-  Button,
-  InputAdornment,
-  IconButton,
-  Divider,
-} from "@mui/material";
+import Dialog from '@mui/material/Dialog';
+import DialogContent from '@mui/material/DialogContent';
+import TextField from '@mui/material/TextField';
+import Button from '@mui/material/Button';
+import InputAdornment from '@mui/material/InputAdornment';
+import IconButton from '@mui/material/IconButton';
+import Divider from '@mui/material/Divider';
 import { MdEmail, MdLock } from "react-icons/md";
 import { FcGoogle } from "react-icons/fc";
 import { useData } from "@/context/DataContext";
@@ -22,7 +20,7 @@ import { supabase } from "@/lib/supabaseClient";
 
 export default function LoginModal() {
   const { loginOpen, handleLoginClose, handleOpen } = useData();
-  const { theme } = useTheme(); // ✅ جلب الثيم
+  const { theme } = useTheme();
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const { t } = useTranslation("home");
@@ -41,7 +39,7 @@ export default function LoginModal() {
 
     try {
       await login(email, password);
-      toast.success("Logged in successfully!");
+      toast.success("✅ Logged in successfully!");
       handleLoginClose();
       handleClose();
     } catch (err) {
@@ -60,10 +58,7 @@ export default function LoginModal() {
           },
         },
       });
-
-      if (error) {
-        toast.error(`❌ خطأ في الاتصال بجوجل: ${error.message}`);
-      }
+      if (error) toast.error(`❌ خطأ في الاتصال بجوجل: ${error.message}`);
     } catch (err) {
       console.error("OAuth Error:", err);
       toast.error("❌ حدث خطأ غير متوقع أثناء تسجيل الدخول.");
@@ -76,14 +71,16 @@ export default function LoginModal() {
         initial={{ opacity: 0, y: 40, scale: 0.95 }}
         animate={{ opacity: 1, y: 0, scale: 1 }}
         transition={{ duration: 0.6, ease: "easeOut" }}
-        className={`p-6 ${theme.card}`} // ✅ خلفية الكارد من الثيم
-        style={{ borderRadius: "24px" }}
+        className="p-8 bg-white/30 dark:bg-black/40 backdrop-blur-xl shadow-2xl rounded-3xl border border-white/20"
       >
         {/* Header */}
         <div className="text-center mb-6">
-          <h2 className={`text-3xl font-bold ${theme.title}`}>
+          <h2 className="text-3xl font-extrabold text-transparent bg-clip-text bg-gradient-to-r from-yellow-600 via-orange-500 to-pink-500 drop-shadow-lg">
             {t("Login")}
           </h2>
+          <p className="mt-2 text-sm text-gray-600 dark:text-gray-300">
+            {t("WelcomeBack")}
+          </p>
         </div>
 
         {/* Content */}
@@ -97,7 +94,7 @@ export default function LoginModal() {
             InputProps={{
               startAdornment: (
                 <InputAdornment position="start">
-                  <MdEmail className={theme.icon} />
+                  <MdEmail className="text-blue-600" />
                 </InputAdornment>
               ),
             }}
@@ -112,39 +109,22 @@ export default function LoginModal() {
             InputProps={{
               startAdornment: (
                 <InputAdornment position="start">
-                  <MdLock className={theme.icon} />
+                  <MdLock className="text-red-600" />
                 </InputAdornment>
               ),
             }}
           />
 
-          <Divider className={`${theme.border} my-4`}>
-            {t("orcontinuewith")}
-          </Divider>
+          <Divider className="my-4">{t("orcontinuewith")}</Divider>
 
           {/* Social Buttons */}
-          <div style={{ display: "flex", justifyContent: "center", marginTop: "20px" }}>
+          <div className="flex justify-center mt-2">
             <IconButton
               onClick={loginWithGoogle}
-              style={{
-                width: "280px",
-                height: "56px",
-                borderRadius: "12px",
-                background:
-                  "linear-gradient(to right, #4285F4, #34A853, #FBBC05, #EA4335)",
-                color: "#fff",
-                fontWeight: "700",
-                fontSize: "16px",
-                display: "flex",
-                alignItems: "center",
-                justifyContent: "center",
-                gap: "12px",
-                boxShadow: "0 6px 16px rgba(0,0,0,0.2)",
-                transition: "all 0.3s ease",
-              }}
+              className="w-[280px] h-[56px] rounded-xl bg-gradient-to-r from-[#4285F4] via-[#34A853] to-[#FBBC05] text-white font-bold text-lg shadow-lg hover:scale-105 transition-transform"
             >
               <FcGoogle size={28} />
-              <span style={{ color: "#fff" }}>Sign in with Google</span>
+              <span className="ml-2">Sign in with Google</span>
             </IconButton>
           </div>
 
@@ -154,7 +134,7 @@ export default function LoginModal() {
               fullWidth
               onClick={handleSubmit}
               disabled={loading}
-              className={theme.buttonPrimary} // ✅ زر من الثيم
+              className="bg-gradient-to-r from-yellow-600 via-orange-500 to-pink-500 text-white font-bold py-3 rounded-xl shadow-lg hover:opacity-90 transition"
             >
               {loading ? t("Loggingin") : t("Login")}
             </Button>
@@ -167,7 +147,7 @@ export default function LoginModal() {
               handleLoginClose();
               handleOpen();
             }}
-            className={theme.buttonSecondary} // ✅ زر ثانوي من الثيم
+            className="mt-2 bg-gray-200 dark:bg-gray-700 text-gray-800 dark:text-gray-200 font-semibold py-3 rounded-xl shadow hover:opacity-80 transition"
           >
             {t("Don’thaveanaccount?SignUp")}
           </Button>

@@ -154,7 +154,7 @@ export default function TripsPage() {
             style={{ marginTop: "105px", paddingBottom: "20px" }}
             className="container flex flex-1 gap-6 px-6 relative z-10"
           >
-            <div className="w-1/4">
+            <div className="w-1/4  max-h-fit bg-[url('/HomePageImage/175992034_88d15aad-42ea-416e-88ce-33a89e230091.svg')] bg-cover bg-center rounded-2xl">
               <TripsFilter
                 allCities={allCities}
                 allCategories={allCategories}

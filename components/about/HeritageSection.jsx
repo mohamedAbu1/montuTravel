@@ -45,8 +45,8 @@ export default function HeritageSection() {
             <Image
                src={
                 themeName === "dark"
-                  ? "/HomePageImage/Copilot_20260424_210309.png"
-                  : "/HomePageImage/Copilot_20260625_165155.png"
+                  ? "/HomePageImage/Copilot_20260424_210309.webp"
+                  : "/HomePageImage/Copilot_20260625_165155.webp"
               }
               alt="Basttet Travel Logo"
               width={400}

@@ -5,30 +5,30 @@ const DarkTheme = {
   background: "#000000", // أسود داكن
 
   // النصوص الأساسية (عاج رملي فاتح)
-  text: "text-[#E6DCCF]", 
+  text: "text-[#E6DCCF]",
 
   // النصوص الثانوية (رمادي-بيج محايد)
-  subText: "text-[#B3A58C]", 
+  subText: "text-[#B3A58C]",
 
   // العناوين الرئيسية (ذهب فرعوني ملكي)
-  title: "text-[#C2A878] font-extrabold tracking-wide", 
+  title: "text-[#C2A878] font-extrabold tracking-wide",
 
   // العناوين الثانوية (بني حجري فاتح)
-  heading: "text-[#A68B5B] font-semibold", 
+  heading: "text-[#A68B5B] font-semibold",
 
   // الكروت الزجاجية الداكنة
   card: "bg-[rgba(35,35,35,0.85)] backdrop-blur-[14px] rounded-[18px] border border-[#C2A878]",
 
   // شعار
   logoGradientFrom: "#FFFFFF", // أبيض
-  logoGradientTo: "#C2A878",   // بيج حجري
+  logoGradientTo: "#C2A878", // بيج حجري
   logoBorder: "#A68B5B",
 
   // طبقة فوق الصور
   overlay: "bg-[rgba(0,0,0,0.2)]",
 
   // الحدود
-  border: "border border-[rgba(194,168,120,0.45)] rounded-[18px]", 
+  border: "border border-[rgba(194,168,120,0.45)] rounded-[18px]",
 
   // الظلال
   shadow:
@@ -40,7 +40,7 @@ const DarkTheme = {
 
   // الأزرار الثانوية (حجر داكن مع حدود ذهبية)
   buttonSecondary:
-    "bg-[#2A2A2A] text-[#E6DCCF] font-medium rounded-xl px-6 py-3 hover:bg-[#3A3A3A] transition-all border border-[#C2A878]",
+    "bg-[#C2A878] text-[#E6DCCF] font-medium rounded-xl px-6 py-3 hover:bg-[#C2A878] transition-all border border-[#C2A878]",
 
   // الأيقونات
   icon: "text-[#C2A878]",

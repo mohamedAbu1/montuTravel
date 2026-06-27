@@ -11,7 +11,7 @@ import { FaSignOutAlt, FaUserPlus } from "react-icons/fa";
 
 export default function Header() {
   const [scrolled, setScrolled] = useState(false);
-  const { theme } = useTheme();
+  const { theme, themeName } = useTheme();
   const { user, isLoggedIn, logout, handleOpen } = useAuth();
 
   useEffect(() => {
@@ -25,10 +25,12 @@ export default function Header() {
       initial={{ y: -80, opacity: 0 }}
       animate={{ y: 0, opacity: 1 }}
       transition={{ duration: 0.8, ease: "easeOut" }}
-      className={`fixed top-0 left-0 w-full z-50 transition-all duration-500  ${
+      className={`fixed top-0 left-0 w-full z-50 transition-all duration-500 ${
         scrolled
-          ? ` ${theme.border} ${theme.shadow}`
-          : `${theme.backgrund} "bg-transparent `
+          ? themeName === "dark"
+            ? "bg-black/80 backdrop-blur-sm shadow-lg border-b border-gray-700"
+            : "bg-white/40 backdrop-blur-md shadow-md border-b border-gray-200"
+          : "bg-transparent"
       }`}
     >
       <div className="max-w-8xl container mx-auto px-6 py-4 flex items-center justify-between">

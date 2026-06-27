@@ -126,7 +126,7 @@ export default function ContactPage() {
               {/* ✅ صورة SVG خلفية */}
               <div className="absolute top-80 left-0 w-full h-[450px] opacity-50 pointer-events-none">
                 <Image
-                  src="/HomePageImage/1547933741.svg" // ضع ملف SVG هنا
+                  src="/HomePageImage/png-egypt-sculpture-statue-art.png" // ضع ملف SVG هنا
                   alt="Decorative Background"
                   fill
                   className="object-contain"

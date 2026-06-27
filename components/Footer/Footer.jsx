@@ -72,7 +72,7 @@ const Footer = () => {
         <Image
           src={
             themeName === "dark"
-              ? "/HomePageImage/png-architecture-pyramid-panoramic-building.png"
+              ? "/HomePageImage/png-architecture-pyramid-panoramic-building.webp"
               : "/fallback.jpg"
           }
           width={580}

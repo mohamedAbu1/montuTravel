@@ -72,7 +72,7 @@ export default function TripReviews({ trip, lang }) {
       rating,
       comment,
       name: user?.user_metadata?.name || user.email,
-      avatar_url: user?.user_metadata?.avatar || null,
+      avatar_url: user?.user_metadata?.avatar_url || null,
       time: new Date().toLocaleTimeString(),
     });
 
