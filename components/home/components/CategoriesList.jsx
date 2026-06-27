@@ -8,14 +8,13 @@ export default function CategoriesList({ categories, language }) {
     <div className="w-full p-8">
       <Swiper
         spaceBetween={20}
-        slidesPerView={4}
         loop={true}
         autoplay={{ delay: 4000 }}
         breakpoints={{
           320: { slidesPerView: 1 },
           640: { slidesPerView: 2 },
           1024: { slidesPerView: 3 },
-          1280: { slidesPerView: 5 },
+          1280: { slidesPerView: 4 },
         }}
       >
         {categories.map((cat, idx) => (

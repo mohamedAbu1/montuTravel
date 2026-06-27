@@ -33,7 +33,7 @@ const CategoriesInput = ({ selectedCategories, toggleCategory, categories }) => 
           <Popover.Content
             side="left"      
             align="start"      // ✅ يبدأ من أعلى الزر
-            sideOffset={190}    // مسافة صغيرة بين الزر والـ Popover
+            sideOffset={590}    // مسافة صغيرة بين الزر والـ Popover
             className={`absolute w-[650px] z-[9999] p-4 rounded-xl shadow-lg border ${theme.logoBorder} flex flex-crow flex-wrap gap-3`}
           >
             {categories.map((cat) => (

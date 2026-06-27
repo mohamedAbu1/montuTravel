@@ -10,8 +10,8 @@ export default function Background() {
 
   // ✅ صور خاصة بالـ Dark Mode
   const darkImages = [
-    "/HomePageImage/magnific__egyptian-temple-background-with-montu-travel-carve__61911.png",
-    "/HomePageImage/magnific__3d-egyptian-temple-desktop-background-nile-river-p__61913.png",
+    "/HomePageImage/magnific__egyptian-temple-background-with-montu-travel-carve__61911.webp",
+    "/HomePageImage/magnific__3d-egyptian-temple-desktop-background-nile-river-p__61913.webp",
   ];
 
   // ✅ صور خاصة بالـ Light Mode

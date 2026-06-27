@@ -40,13 +40,16 @@ export default function CategoryCard({ cat, language }) {
     <motion.div
       onClick={handleClick}
       whileHover={{ scale: 1.05, rotateY: 5, rotateX: 5 }}
-      className={`relative group cursor-pointer h-[420px] w-[260px] mx-auto rounded-[60px]
-        perspective-1000 ${theme.card} ${theme.shadow}`}
+      className={`relative group cursor-pointer 
+                  w-full max-w-[320px] 
+                  h-[300px] sm:h-[350px] md:h-[400px] lg:h-[450px] 
+                  mx-auto rounded-[40px] 
+                  perspective-1000 ${theme.card} ${theme.shadow}`}
     >
-      <div className="absolute inset-0 flex items-center justify-center rounded-[60px]">
+      <div className="absolute inset-0 flex items-center justify-center rounded-[40px]">
         <div
-          className={`w-full h-full relative overflow-hidden rounded-[60px] 
-            shadow-2xl transform transition-transform duration-500`}
+          className={`w-full h-full relative overflow-hidden rounded-[40px] 
+                      shadow-2xl transform transition-transform duration-500`}
         >
           <AnimatePresence mode="sync">
             <motion.div
@@ -55,7 +58,7 @@ export default function CategoryCard({ cat, language }) {
               animate={{ opacity: 1 }}
               exit={{ opacity: 0 }}
               transition={{ duration: 1 }}
-              className="absolute inset-0 "
+              className="absolute inset-0"
             >
               <Image
                 src={cat.images?.[imgIndex] || "/fallback.jpg"}
@@ -70,7 +73,19 @@ export default function CategoryCard({ cat, language }) {
           <div
             className={`absolute inset-0 ${theme.overlay} flex items-end justify-center pb-6`}
           >
-            <p className={`${theme.title} text-lg font-bold`}>{displayName}</p>
+            <p className={`${theme.title} text-lg font-bold`}>
+              {displayName}
+            </p>
+          </div>
+
+          {/* انعكاس سفلي */}
+          <div className="absolute bottom-[-40%] inset-x-0 opacity-30 scale-y-[-1]">
+            <Image
+              src={cat.images?.[imgIndex] || "/fallback.jpg"}
+              alt={`${displayName} reflection`}
+              fill
+              className="object-cover rounded-b-[40px]"
+            />
           </div>
         </div>
       </div>
